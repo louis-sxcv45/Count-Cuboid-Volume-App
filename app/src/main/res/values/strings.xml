@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Count Cuboid Volume</string>
+    <string name="count">Count</string>
+    <string name="input_high">Input High</string>
+    <string name="count_cuboid_volume">Count Cuboid Volume</string>
+    <string name="panjang">Panjang</string>
+    <string name="input_length">Input Length</string>
+    <string name="lebar">Lebar</string>
+    <string name="input_width">Input Width</string>
+    <string name="tinggi">Tinggi</string>
+    <string name="_0">0</string>
+</resources>
