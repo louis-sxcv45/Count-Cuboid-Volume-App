@@ -9,17 +9,15 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.countcuboidvolume.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
-    private lateinit var width : EditText
-    private lateinit var length : EditText
-    private lateinit var high : EditText
-    private lateinit var result : TextView
-    private lateinit var count : Button
 
     companion object{
         private const val STATE_RESULT = "state_result"
     }
+
+    private lateinit var binding : ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,46 +28,44 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        width = findViewById(R.id.width)
-        length = findViewById(R.id.length)
-        high = findViewById(R.id.high)
-        result = findViewById(R.id.result)
-        count = findViewById(R.id.count)
-        count.setOnClickListener(this)
+
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        binding.count.setOnClickListener(this)
 
         if(savedInstanceState != null) {
             val resultVolume = savedInstanceState.getString(STATE_RESULT)
-            result.text = resultVolume
+            binding.result.text = resultVolume
         } /// for saving the result if the app layer changed to landscape or portrait
     }
 
     override fun onClick(view: View?) {
-        val widthValue = width.text.toString().trim()
-        val lengthValue = length.text.toString()
-        val highValue = high.text.toString()
+        val widthValue = binding.width.text.toString().trim()
+        val lengthValue = binding.length.text.toString()
+        val highValue = binding.high.text.toString()
 
             var emptyField = false
             if(widthValue.isEmpty()){
                 emptyField = true
-                width.error = "This form cannot be empty"
+                binding.width.error = "This form cannot be empty"
             }
             if(lengthValue.isEmpty()){
                 emptyField = true
-                length.error = "This form cannot be empty"
+                binding.length.error = "This form cannot be empty"
             }
             if(highValue.isEmpty()){
                 emptyField = true
-                high.error = "This form cannot be empty"
+                binding.high.error = "This form cannot be empty"
             }
 
             if(!emptyField){
                 val cuboidVolume = widthValue.toDouble() * lengthValue.toDouble() * highValue.toDouble()
-                result.text = cuboidVolume.toString()
+                binding.result.text = cuboidVolume.toString()
             }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putString(STATE_RESULT,result.text.toString())
+        outState.putString(STATE_RESULT,binding.result.text.toString())
     } /// for saving the result if the app layer changed to landscape or portrait
 }
